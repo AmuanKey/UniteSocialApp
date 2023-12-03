@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block title %}
+V.GEN | PostDetail
+{% endblock %}
+{% block body %}
+
+<div class="my-4">...</div>
+<div class=" row">
+    <div class="col-md-4 photo p-5" style="background: linear-gradient(to right, #fc354c, #0abfbc); ">
+        <div>
+            {% if post.image %}
+            <img src="{{post.image.url}}" width="300" class="card-img-top " alt="...">
+            {% else %}
+            <img src="{% static 'images/nophoto.png' %}" width="300" class="card-img-top" alt="...">
+    
+            {% endif %}
+
+        </div>
+      
+
+    </div>
+    <!-- <div class="col-md-4">placeholder do not remove!!!</div> -->
+    <div class="col-md-8   text-light">
+        <h3 class="mt-2 p-2 text-center " style="background: linear-gradient(to right, #fc354c, #0abfbc);"> <a class="bi bi-arrow-left-circle float-start text-light" href="{% url 'home' %}"  role="button"></a> About this
+            Post</h3>
+        <div class="p-3 rounded">
+            <div> <span class="border-bottom fs-2">{{post.title}} </span> </div>
+            <h4>
+                {{post.body}}
+            </h4>
+            <small class="text-muted">By {{ author}}, {{ post.created_at | naturaltime }}</small><br>
+            <div class="mt-3 ">
+
+                {% if post.author_id == user.id %}
+                <a href="/update/{{ post.id }}/" class="p-2 rounded text-decoration-none text-light"
+                    style="background: linear-gradient(to right, #fc354c, #0abfbc);"><i
+                        class="bi bi-sliders pe-2"></i>Edit</a>
+                <a href="/delete/{{ post.id }}/" class=" p-2 rounded text-decoration-none text-light"
+                    style="background: linear-gradient(to right, #fc354c, #0abfbc);"
+                    onclick="return confirm('Are you sure?');"><i class="bi bi-file-earmark-x pe-2"></i>Delete</a>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <hr style="height: 2px; background: linear-gradient(to right, #fc354c, #0abfbc); box-shadow: 0 0 5px white;">
+        <div class="comment-section row">
+            <h4 class="text-light col-md-4">Comments <i class="bi ps-2 bi-chat-left-dots"></i></h4>
+            <div class="col-md-8">
+            {% if user.is_authenticated %}
+            <form method="POST" action="/cmtcreate/{{post.id}}/">
+                {% csrf_token %}
+                <div class="input-group">
+                    <textarea name="content" placeholder="leave your thoughts " class="bg-transparent border-0 border-bottom text-light w-75" rows="1"></textarea>
+                    <button class="border-0 rounded text-light" style=" background: linear-gradient(to right, #fc354c, #0abfbc);" type="submit">Comment</button>
+                </div>
+            </form>
+            {% endif %}
+            </div>
+        </div>
+        <div class="p-2 row">
+            {% if comments %}
+            {% for i in comments %}
+            <div class="col-md-5 p-2">
+                <div class="card   bg-transparent" style="border-color: #0abfbc;">
+                    <div class="card-header row">
+                        <h5 class="col-10  ">
+                                {% if i.author_id == user.id  %}
+
+                                <i class="bi bi-person-check" title='post-owner'></i>
+
+                                {% else %}
+                                    <i class="bi bi-person-fill"></i> 
+                                {% endif %}
+                            
+                            
+                            {{i.author}} </h5>
+                        {% if i.author_id == user.id  %}
+                        <div class="dropdown  col-1">
+                            <button class="bg-transparent text-light fs-5 border-0  dropdown-toggle" type="button" data-bs-toggle="dropdown" >
+                              <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu bg-dark border-info ">
+                              <li><a class="dropdown-item text-info" href="{% url 'cmtupdate' i.id post.id %}">Edit</a></li>
+                              <li><a class="dropdown-item text-info" onclick="return confirm('Delete comment?');" href="{% url 'cmtdelete' i.id post.id %}">Delete</a></li>
+                            </ul>
+                          </div>
+                         {% elif  post.author_id == user.id  %} 
+                         <div class="dropdown  col-1">
+                            <button class="bg-transparent text-light fs-5 border-0  dropdown-toggle" type="button" data-bs-toggle="dropdown" >
+                              <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu bg-dark border-info ">
+                              <li><a class="dropdown-item text-info" onclick="return confirm('Delete comment?');" href="{% url 'cmtdelete' i.id post.id %}">Delete</a></li>
+                            </ul>
+                          </div>
+
+                        {% endif %}
+                    </div>
+                 
+
+                    <div class="card-body"><i class="bi bi-chat-dots"></i> : {{i.content}}</div>
+                    
+    
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+          
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

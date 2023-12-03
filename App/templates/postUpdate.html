@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+V.GEN | Update Post
+{% endblock %}
+{% block body %}
+
+<div class="container mt-5 pt-5 mb-5">
+<div class='my-2'><a role="button" onclick="window.history.back()" class="bi px-2 text-light bi-chevron-double-left fs-3"></a></div>
+
+
+<div class="card mx-auto " style="width: 500px; background: linear-gradient(to right, #fc354c, #0abfbc);">
+<div class="card-body">
+<form method="POST" action="" enctype="multipart/form-data" >
+{% csrf_token %}
+<div class="col-12">
+<label class="form-label">Title</label>
+<input type="text" name="title" class="form-control" value="{{post.title}}"  required>
+</div>
+<div class="col-12">
+<label class="form-label">Description</label>
+<textarea type="text" name="body" class="form-control"  required>{{post.body}}
+</textarea>
+</div>
+<br>
+<div class="col-12">
+    <label class="form-label">Image</label>
+    {% if post.image %}
+    <p>Existing Image : <img src="{{post.image.url}}" width="100" /></p>
+    {% endif %}
+    <input type="file" name="image" class="form-control" >
+</div>
+<br>
+<div class="col-12">
+<button type="submit" class="btn btn-outline-info">Update</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

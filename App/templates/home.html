@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}
+V.GEN | Home
+{% endblock %}
+{% block body %}
+<div class="my-3">
+    --
+</div>
+
+<div class="container mt-5 ">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible fade show position-absolute bg-dark text-info" style="z-index: 10; right:10px;" role="alert">
+        {{ message }}
+        <button type="button" class=" bg-transparent border-0" data-bs-dismiss="alert" aria-label="Close"><i class=" text-danger px-1 bi bi-x-lg"></i></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div>
+
+    </div>
+    <div class="row">
+        <div class="d-md-none">
+    <a href="/create/" class="position-fixed" style="bottom:80px ; z-index: 10; right: 15px;" ><i title="add post" class="bi bi-plus-circle-fill text-info" style="font-size: 40px;"></i> </a>
+        </div>
+        <div class=" col-md-2 d-none d-md-block" >
+            <div class="border border-1 position-fixed   rounded dropdown" style="z-index: 1; ">
+
+                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Category 
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'home' %}">All</a></li>
+
+                    {% for category in categories %}
+                <li><a class="dropdown-item" href="{% url 'home' %}?category={{category.name}}">{{category.name}}</a></li>
+                {% endfor %}
+                </ul>
+                </div>
+
+             {% if people  %}
+                <div class="border border-1 position-fixed   rounded dropdown" style="top: 150px; z-index: 0;">
+
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    People 
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    
+                        {% for person in people %}
+                    <li><a class="dropdown-item" href="{% url 'profile' person.id%}?visitor={{user.id}}">{{person.username}}</a></li>
+                    {% endfor %}
+                    </ul>
+                    </div>
+                {% endif %}
+
+            </div>
+    <div class=" p-3 col-md-10 row  rounded" style="background-color: rgb(49, 56, 54);">
+   
+        {% for post in posts %}
+        <div class="col-md-4 g-4">
+       
+
+
+
+
+        <div onclick="window.location='/detail/{{ post.id }}/'" class="card text-light " style=" background: linear-gradient(to right, #fc354c, #0abfbc); cursor: pointer;">
+         
+            <div class="input-group bg-transparent  border-bottom py-1 ">
+                <div class="input-group-text bg-transparent text-light  w-50 border-0" >Category </div>
+                <div class="input-group-text bg-transparent text-info   w-50 border-0" >{{ post.category }}</div>
+
+              </div>
+     <div class="p-3">
+        {% if post.image %}
+
+        <img src="{{post.image.url}}" class="card-img-top" alt="...">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ post.title }}</h5>
+          <p class="card-text">Click here to see detail.....</p>
+        </div>
+        <small class="text-dark float-end">By {{post.author}} | {{ post.created_at | naturaltime }}</small>
+    </div>
+      </div>
+
+    </div>
+
+        {% endfor %}
+    </div>
+   
+</div>
+   
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg  text-danger position-fixed w-100 top-0  "
+    style="background-color: black;z-index: 9;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src="{% static 'images/Logo.png' %}" width="100" alt=""></a>
+        <button class="navbar-toggler  " type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="bi navbar-toggler-icon bi-list text-light "></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/"><i class="bi bi-house-fill"></i>Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/create/"><i class="bi bi-plus-circle"></i>Add Post</a>
+                </li>
+                {% if user.is_authenticated %}
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{user.username}}
+                    </a>
+                    <ul class="dropdown-menu bg-dark " aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-info" href="{% url 'profile' user.id %}"><i class="bi bi-person-fill"></i>Profile </a></li>
+                        <li><a class="dropdown-item text-info" href="#">{{user.email}}</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-info" href="{% url 'logout' %}"><i class="bi bi-box-arrow-left"></i>Log out</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-down-right"></i>Login</a>
+
+
+                </li>
+                {% endif %}
+
+    <div class="navbar-nav d-md-none">
+                <li class=" dropdown">
+
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Category
+                    </a>
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-info" href="{% url 'home' %}">All</a></li>
+
+                        {% for category in categories %}
+                        <li><a class="dropdown-item text-info"
+                                href="{% url 'home' %}?category={{category.name}}">{{category.name}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                {% if people %}
+                <li class="dropdown">
+
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        People
+                    </a>
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+
+                        {% for person in people %}
+                        <li><a class="dropdown-item text-info"
+                                href="{% url 'profile' person.id%}?visitor={{user.id}}">{{person.username}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endif %}
+
+            </div> 
+
+
+            </ul>
+
+
+
+            <form class="d-flex " action="/search_by/">
+                <input class="form-control me-2 bg-transparent outline-none text-light  border-info " type="search" name="search"
+                    placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-info rounded-circle" type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+
+<!-- tailwind  -->
+
+
+
+
+
+
+<!-- Main navigation container -->
+<!--  -->

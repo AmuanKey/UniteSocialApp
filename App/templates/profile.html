@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384- EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
+
+{% load humanize %}
+
+<body class="bg-dark text-light">
+
+    <div class=" container mt-3">
+        <a role="button" class="" href="{% url 'home'  %}"><i class="bi fs-2 bi-arrow-left-circle"></i></a>
+
+<div class="container   text-center">
+    <h3>{{user.username}}</h3>
+    <h3>{{ user.email }}</h3>
+    
+    <!-- {{user.id}} {{visitor.id}} -->
+    {% if visitor %}
+              <hr>  <!-- {% if user.id == visitor.id %}
+            <div class="text-center">
+                <a href="{% url 'editprofile' user.id %}" class="btn btn-warning">Edit Profile</a>
+
+            </div>
+                {% endif %} -->
+    {% else %}
+    <div class="text-center">
+        <a href="{% url 'editprofile' user.id %}" class="text-decoration-none" style="color:#fc354c;"><i class="bi px-2  bi-gear-wide"></i>Edit Profile</a>
+
+    </div>
+    {% endif %}
+</div>
+
+    </div>
+
+
+<div class="container ">
+
+    <div class=" p-3 col-md-8 row">
+        <h3>{{user.username}}'s posts</h3>
+        {% for post in posts %}
+        <div class="col-md-4 g-4">
+       
+
+
+
+
+        <div onclick="window.location='/detail/{{ post.id }}/'" class="card text-light " style=" background: linear-gradient(to right, #fc354c, #0abfbc); cursor: pointer;">
+         
+            <div class="input-group bg-transparent  border-bottom py-1 ">
+                <div class="input-group-text bg-transparent text-light  w-50 border-0" >Category </div>
+                <div class="input-group-text bg-transparent text-info   w-50 border-0" >{{ post.category }}</div>
+
+              </div>
+     <div class="p-3">
+        {% if post.image %}
+
+        <img src="{{post.image.url}}" class="card-img-top" alt="...">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ post.title }}</h5>
+          <p class="card-text">Click here to see detail.....</p>
+        </div>
+        <small class="text-dark float-end">By {{post.author}} | {{ post.created_at | naturaltime }}</small>
+    </div>
+      </div>
+
+    </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+

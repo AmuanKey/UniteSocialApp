@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+Update Comment
+{% endblock %}
+{% block body %}
+<div class="container mt-5 pt-5 mb-5 d-flex justify-content-center">
+<div class="card col-md-6 " style=" background: linear-gradient(to right, #fc354c, #0abfbc);">
+<div class="card-body">
+<form method="POST" action="">
+{% csrf_token %}
+<div class="col-12">
+<label class="form-label">Content</label>
+<textarea type="text" name="content" class="form-control bg-dark text-light"
+required>{{comment.content}}
+</textarea>
+</div><br>
+<div class="col-12 text-center">
+<button  class="btn btn-outline-dark" onclick="window.history.back()">Back</button>
+<button type="submit" class="btn btn-outline-info">Update</button>
+
+</div>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

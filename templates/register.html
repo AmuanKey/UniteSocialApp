@@ -1,0 +1,86 @@
+
+<html>
+   <head>
+      <title>V.Gen | Register</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   </head>
+   <body class="bg-neutral-700  p-10">
+      
+
+
+
+<section class=" rounded-lg h-full  p-5 grid md:grid-cols-2">
+   
+
+<div class="w-full bg-neutral-800  md:rounded-l-lg p-5">
+   <form method="post" class="">
+      <button onclick="window.history.back()" role="button" class=" rounded-lg text-red-700 hover:text-green-400   p-2 mt-1 " type="submit" > <i class="fa-solid fa-arrow-left"></i></button>
+
+      <h1 class="text-white my-6 text-xl">Create Your Account</h1>
+
+      {% csrf_token %}
+      <table class=" w-full">
+         <tr class="h-10 ">
+            <td>
+         <label for="" class="text-white">Name</label>
+           </td>
+            <td>
+         <input type="text" class=" text-white bg-transparent border-b-2 border-sky-400 focus:outline-none" required name="username">
+           </td>
+         </tr>
+         <tr class="h-10">
+            <td>
+         <label for="" class="text-white">Email</label>
+           </td>
+            <td>
+         <input type="email" class=" text-white bg-transparent border-b-2 border-sky-400 focus:outline-none" required name="email">
+           </td>
+         </tr>
+         <tr class="h-10">
+            <td>
+         <label for="" class="text-white">Password</label>
+           </td>
+            <td>
+         <input type="password" class=" text-white bg-transparent border-b-2 border-sky-400 focus:outline-none" required name="password1">
+           </td>
+         </tr>
+         <tr class="h-10">
+            <td>
+         <label for="" class="text-white">Confirm Password</label>
+           </td>
+            <td>
+         <input type="password" class=" text-white bg-transparent border-b-2 border-sky-400 focus:outline-none" required name="password2">
+           </td>
+         </tr>
+      </table>
+      
+      
+      
+      <div class="text-center  my-8">
+         <input style="background: linear-gradient(to right, #fc354c, #0abfbc)" role="button" class="px-3 rounded-lg text-white  p-2 mt-1 " type="submit" value="Create Account"/>
+
+      </div>
+     
+   </form>
+
+</div>
+
+<div class="flex items-center rounded-b-lg w-full  lg:rounded-r-lg lg:rounded-bl-none"
+                style="background: linear-gradient(to right, #fc354c, #0abfbc)">
+                <div class="px-4 py-6 text-white md:mx-6 md:p-12">
+                  <h4 class="mb-6 text-xl font-semibold">
+                     Embark on a Social Journey
+                  </h4>
+                  <p class="text-sm">
+                     " Where Connections Flourish, Discoveries Await, and Friendships Blossom at Every Step with Unity."
+
+                  </p>
+                </div>
+  
+   
+</section>
+
+   </body>
+</html>

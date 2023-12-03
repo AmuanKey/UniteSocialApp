@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}
+V.GEN | CreatePost
+{% endblock %}
+{% block body %}
+
+<div class="container-fluid  mt-5 p-5    " style="background: linear-gradient(to right, #fc354c, #0abfbc); ">
+          <div class='my-2'><a href="{% url 'home' %}"  class="bi text-light bi-chevron-double-left fs-3"></a></div>
+          <div class="row">
+            <div class="card bg-dark text-light mx-auto col-md-6" >
+              <div class="card-body">
+                         <h1>Create Your Post</h1>
+                <form method="POST" action="" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="col-12">
+                    <label class="form-label">Title</label>
+                    <input type="text" name="title" class="form-control bg-transparent border-0 border-bottom text-light" placeholder="title" required>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Description</label>
+                    <textarea type="text" name="body" class="form-control bg-transparent border-0 border-bottom text-light" placeholder="body" required></textarea>
+                  </div>
+                  <br>
+                  <div class="col-12">
+                  <label class="form-label">Upload Image</label>
+                  <input type="file" name="image" class="form-control bg-transparent border-0 border-bottom text-light" placeholder="body">
+              </div>
+              <br>
+              <div class="col-12 ">
+                <label class="form-label">Category</label>
+                <select class="form-select bg-transparent border-0 border-bottom text-light" name="category">
+                  <option value="none" class="text-info bg-dark">Select a Category...or create a new one </option>
+                  {% for i in category %}
+                  <option class="text-info bg-dark" value="{{i.id}}">{{i.name}}</option>
+                  {% endfor %}
+              
+                </select>
+              </div>
+              <br>
+              <div class="col-12">
+                <label class="form-label">Create a new Category </label>
+                <input type="text" name="newcat" class="form-control bg-transparent border-0 border-bottom text-light" placeholder="hero" >
+              </div><br>
+            
+              <div class="col-12 mt-3">
+                <button type="submit" class="px-3 py-2 border-0 rounded" style="background: linear-gradient(to right, #fc354c, #0abfbc);">Create</button>
+              </div>
+              </form>
+            </div>
+          </div>
+</div>
+{% endblock %}
